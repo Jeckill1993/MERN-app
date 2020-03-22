@@ -1,0 +1,10 @@
+.container {
+    width: 50%;
+    margin: 0 auto;
+}
+.container img {
+    width: 80%;
+} 
+.container button {
+    width: 5%;
+}
