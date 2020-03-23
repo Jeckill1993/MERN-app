@@ -1,3 +1,5 @@
 'use strict'
 
-slider.initialization();
+slider1.initialization('slider1');
+slider2.initialization('slider2');
+

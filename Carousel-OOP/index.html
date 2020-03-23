@@ -8,13 +8,21 @@
         <title>Simple slider</title>
     </head>
     <body>
-        <div class="container">
-            <button class="button-move" id="previous"><</button>
-            <img src="" alt="mountains" id="image">
-            <button class="button-move" id="next">></button>
+        <div class="container" id="slider1">
+            <button class="button-move-prev" id="previous1"><</button>
+            <img src="" alt="mountains" class="images-node" id="image1">
+            <button class="button-move-next" id="next1">></button>
         </div>
 
-        <script src="./getObject.js"></script>
+        <div class="container" id="slider2">
+            <button class="button-move-prev" id="previous2"><</button>
+            <img src="" alt="mountains" class="images-node" id="image2">
+            <button class="button-move-next" id="next2">></button>
+        </div>
+
+        <script src="./slider.js"></script>
+        <script src="./getObject1.js"></script>
+        <script src="./getObject2.js"></script>
         <script src="./load.js"></script>
     </body>
 </html>
