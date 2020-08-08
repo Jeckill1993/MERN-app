@@ -1,4 +1,5 @@
 {
   "port": 5000,
+  "jwtSecret": "my mern app secret key",
   "mongoUri": "mongodb+srv://kotillion:Malazan1993@cluster0.0cbis.azure.mongodb.net/mern?retryWrites=true&w=majority"
 }
