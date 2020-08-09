@@ -1,16 +1,41 @@
-const SET_AUTH_INFO = 'auth-reducer/SET_AUTH_INFO';
+import {authAPI} from "../api/api";
 
-const setAuthInfoAC = (value) => {
+const SET_AUTH_INFO = 'auth-reducer/SET_AUTH_INFO';
+const SIGN_IN = 'auth-reducer/SIGN_IN';
+
+const setAuthInfoAC = () => {
     return {
         type: SET_AUTH_INFO,
-        value
+        isAuth: true
+    }
+}
+const SignInSuccess = (userId) => {
+    return {
+        type: SIGN_IN,
+        userId,
+    }
+
+
+}
+
+export const setAuthInfoTC = (formData) => {
+    return async (dispatch) => {
+        let response = await authAPI.register(formData);
+        if (response.status === 201) {
+            dispatch(setAuthInfoAC(response));
+        }
+    }
+}
+export const signInTC = (formData) => {
+    return async (dispatch) => {
+        let response = await authAPI.signIn(formData);
+        console.log(response);
     }
 }
 
-
-
 const initialState = {
     isAuth: false,
+    userId: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -18,7 +43,12 @@ const authReducer = (state = initialState, action) => {
         case SET_AUTH_INFO:
             return {
                 ...state,
-                isAuth: action.value,
+                isAuth: action.isAuth,
+            }
+        case SIGN_IN:
+            return {
+                ...state,
+                userId: action.userId,
             }
         default:
             return state;

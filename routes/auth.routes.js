@@ -6,7 +6,7 @@ const {check, validationResult} = require('express-validator');
 const User = require('../models/User');
 const router = Router(); //create router, using func Router from express framework
 
-// api/auth/register
+// /api/auth/register
 router.post(
     '/register',
     [
@@ -31,7 +31,7 @@ router.post(
             const hashedPassword = await bcrypt.hash(password, 12);
             const user = new User({fullName, email, password: hashedPassword})
             await user.save() // ??
-            res.status(201).json({message: 'the account was created'})
+            res.status(201).json({status: 200,message: 'the account was created'})
 
 
         } catch (e) {
@@ -39,7 +39,7 @@ router.post(
         }
     })
 
-// api/auth/login
+// /api/auth/login
 router.post(
     '/login',
     [
@@ -61,7 +61,7 @@ router.post(
             if (!user) {
                 return res.status(400).json({message: 'the user is not found'})
             }
-            const isMatched = await bcrypt.compare(password, user.password); // ??compare(), bcript doc
+            const isMatched = await bcrypt.compare(password, user.password); // ??compare(), bcrypt doc
             if (!isMatched) {
                 return res.status(400).json({message: 'invalid password, try again'})
             }

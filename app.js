@@ -3,6 +3,7 @@ const config = require('config'); //get config
 const mongoose = require('mongoose');
 
 const app = express()// our server
+app.use(express.json({extended: true}))
 app.use ('/api/auth', require('./routes/auth.routes')); // ?? read about it
 
 const PORT = config.get('port') || 5000 // port's number of our app
