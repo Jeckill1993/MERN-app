@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express()// our server
 app.use(express.json({extended: true}))
 app.use ('/api/auth', require('./routes/auth.routes')); // ?? read about it
+app.use ('api/profile', require('./routes/profile.routes'))
 
 const PORT = config.get('port') || 5000 // port's number of our app
 

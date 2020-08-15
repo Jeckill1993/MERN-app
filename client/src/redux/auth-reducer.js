@@ -1,35 +1,43 @@
 import {authAPI} from "../api/api";
 
-const SET_AUTH_INFO = 'auth-reducer/SET_AUTH_INFO';
 const SIGN_IN = 'auth-reducer/SIGN_IN';
+const LOG_OUT = 'auth-reducer/LOG_OUT';
 
-const setAuthInfoAC = () => {
-    return {
-        type: SET_AUTH_INFO,
-        isAuth: true
-    }
-}
-const SignInSuccess = (userId) => {
+//actions creators
+const signInSuccess = (userId) => {
     return {
         type: SIGN_IN,
+        isAuth: true,
         userId,
     }
-
-
+}
+export const logOut = () => {
+    return {
+        type: LOG_OUT,
+        isAuth: false,
+        userId: null,
+    }
 }
 
+//thunks creators
 export const setAuthInfoTC = (formData) => {
     return async (dispatch) => {
         let response = await authAPI.register(formData);
         if (response.status === 201) {
-            dispatch(setAuthInfoAC(response));
+            alert('You was registered, sign in for entering to your account');
         }
     }
 }
 export const signInTC = (formData) => {
     return async (dispatch) => {
-        let response = await authAPI.signIn(formData);
-        console.log(response);
+        let data = await authAPI.signIn(formData);
+        console.log(data);
+        let userId = data.userId;
+        let userToken = data.token;
+        localStorage.setItem("userData", JSON.stringify({
+            userId, userToken
+        }));
+        dispatch(signInSuccess(userId));
     }
 }
 
@@ -40,14 +48,17 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_AUTH_INFO:
-            return {
-                ...state,
-                isAuth: action.isAuth,
-            }
         case SIGN_IN:
             return {
                 ...state,
+                isAuth: action.isAuth,
+                userId: action.userId,
+            }
+        case LOG_OUT:
+            localStorage.removeItem("userData");
+            return {
+                ...state,
+                isAuth: action.isAuth,
                 userId: action.userId,
             }
         default:

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {signInTC} from "../../redux/auth-reducer";
+import {logOut, signInTC} from "../../redux/auth-reducer";
 import {Field, reduxForm} from "redux-form";
 
 
@@ -20,9 +20,11 @@ const Header = ({isAuth}) => {
     const signIn = (data) => {
         dispatch(signInTC(data));
     }
+    const logOutClick = () => {
+        dispatch(logOut());
+    }
 
     const signInSubmit = (formData) => {
-        console.log(formData);
         signIn(formData);
     }
 
@@ -31,7 +33,7 @@ const Header = ({isAuth}) => {
             <img src={'#'} alt={'logo'}/>
             {isAuth
                 ? <div>
-                    <button>
+                    <button onClick={() => {logOutClick()}}>
                         Sign Out
                     </button>
                 </div>

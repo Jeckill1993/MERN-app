@@ -8,7 +8,7 @@ export const authAPI = {
     },
     signIn: (formData) => {
         return axios.post('/api/auth/login', {email: formData.email, password: formData.password}).then(
-            response => {return response}
+            response => {return response.data}
         )
     }
 }
